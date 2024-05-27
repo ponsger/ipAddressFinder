@@ -1,7 +1,7 @@
 import axios from 'axios';
 import './App.css';
 import { useEffect, useState } from 'react';
-import Map from './components/Map';
+import MapView from './components/MapView';
 
 function App() {
 
@@ -36,8 +36,8 @@ function App() {
           <h4>Internet Service Provider (ISP):</h4>
           <p>{ipDetails.org}</p>
         </div>
-        <div>
-          <Map lat={lat} lon={lon} />
+        <div style={{width:'100%'}}>
+          <MapView lat={lat} lon={lon} api={fetchApi}/>
         </div>
       </main>
     </>
