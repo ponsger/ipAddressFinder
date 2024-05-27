@@ -1,24 +1,47 @@
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
+import { useEffect, useState } from 'react';
+import Map from './components/Map';
 
 function App() {
+
+  const [ipDetails, setIpDetails] = useState([]);
+  const [lat, setLat] = useState(0.0);
+  const [lon, setLon] = useState(0.0);
+
+  const fetchApi = async () => {
+    const requestDataFromUser = await axios.get("https://ipapi.co/json/");
+    const requestData = requestDataFromUser.data;
+    setIpDetails(requestData);
+    setLat(requestData.latitude);
+    setLon(requestData.longitude);
+  }
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Ip Address Finder</h1>
+      <main className="App">
+        <div>
+          <h3>What is my IP Address?</h3>
+          <h1 id='ip'>{ipDetails.ip}</h1>
+          <h4>Approximate location: </h4>
+          <p>
+            {ipDetails.city} , {ipDetails.region} , {ipDetails.country_name}.
+          </p>
+
+          <h4>Internet Service Provider (ISP):</h4>
+          <p>{ipDetails.org}</p>
+        </div>
+        <div>
+          <Map lat={lat} lon={lon} />
+        </div>
+      </main>
+    </>
+
   );
 }
 
