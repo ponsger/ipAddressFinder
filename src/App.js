@@ -23,7 +23,7 @@ function App() {
 
   return (
     <>
-      <h1>Ip Address Finder</h1>
+      <h1>IP Address Finder</h1>
       <main className="App">
         <div>
           <h3>What is my IP Address?</h3>
@@ -36,7 +36,7 @@ function App() {
           <h4>Internet Service Provider (ISP):</h4>
           <p>{ipDetails.org}</p>
         </div>
-        <div style={{width:'100%'}}>
+        <div className='display-map'>
           <MapView lat={lat} lon={lon} api={fetchApi}/>
         </div>
       </main>
